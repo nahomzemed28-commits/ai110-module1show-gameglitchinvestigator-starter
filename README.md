@@ -25,9 +25,23 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+**Game Purpose:**
+Glitchy Guesser is a number guessing game built with Streamlit. The player selects a difficulty (Easy: 1–20, Normal: 1–100, Hard: 1–50), then tries to guess a randomly chosen secret number within a limited number of attempts. Each guess returns a hint and the player's score updates based on how quickly they find the answer.
+
+**Bugs Found:**
+
+1. **State Bug — secret number kept changing:** The text input widget used a dynamic key (`key=f"guess_input_{difficulty}"`). Every time Streamlit re-ran the script, this key changed, which caused the widget to be treated as new and triggered a fresh `random.randint` call, replacing the secret number on every click.
+
+2. **Logic Bug — secret passed as a string:** On every even-numbered attempt, the code intentionally converted the secret to a string (`secret = str(st.session_state.secret)`) before passing it to `check_guess`. This caused incorrect comparisons between an `int` guess and a `str` secret, producing wrong hints.
+
+3. **Logic Bug — hints were backwards:** Inside `check_guess`, when `guess > secret` the message said "📈 Go HIGHER!" and when `guess < secret` it said "📉 Go LOWER!" — the opposite of correct.
+
+**Fixes Applied:**
+
+1. Changed the text input key to a static string `key="guess_input"` so the widget identity never changes across reruns.
+2. Removed the even/odd string conversion — the secret is now always passed as an integer.
+3. Corrected the hint messages: "Too High" → "📉 Go LOWER!", "Too Low" → "📈 Go HIGHER!".
+4. Refactored all game logic (`get_range_for_difficulty`, `parse_guess`, `check_guess`, `update_score`) out of `app.py` and into `logic_utils.py`. All 3 pytest tests now pass.
 
 ## 📸 Demo
 
