@@ -44,8 +44,9 @@ Glitchy Guesser is a number guessing game built with Streamlit. The player selec
 4. Refactored all game logic (`get_range_for_difficulty`, `parse_guess`, `check_guess`, `update_score`) out of `app.py` and into `logic_utils.py`. All 3 pytest tests now pass.
 
 ## 📸 Demo
+<img width="867" height="681" alt="Screenshot 2026-03-16 at 3 42 33 PM" src="https://github.com/user-attachments/assets/3b46e22b-b385-4c88-9f5c-7f7c065e7bb2" />
 
-- [ ] [Insert a screenshot of your fixed, winning game here]
+- [ ] 
 
 ## 🚀 Stretch Features
 
